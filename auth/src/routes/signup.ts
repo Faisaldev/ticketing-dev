@@ -1,7 +1,9 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+import { BadRequestError } from '../errors/bad-request-error';
 import { RequestValidationError } from '../errors/request-validation-error';
-import { DatabaseConnectionError } from '../errors/database-connection-error';
+import { User } from '../models/user';
 
 const router = express.Router();
 
@@ -17,17 +19,36 @@ router.post(
       })
       .withMessage('password must be between 4 and 20'),
   ],
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       throw new RequestValidationError(errors.array());
     }
 
     const { email, password } = req.body;
-    console.log('creating user');
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      throw new BadRequestError('Email in use');
+    }
 
-    throw new DatabaseConnectionError();
-    res.send({});
+    const user = User.build({ email, password });
+    await user.save();
+
+    //generate JWT
+    const userJwt = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+      },
+      process.env.JWT_KEY!
+    );
+
+    //store into session
+    req.session = {
+      jwt: userJwt,
+    };
+
+    res.status(201).send(user);
   }
 );
 
