@@ -4,36 +4,33 @@ import jwt from 'jsonwebtoken';
 import { BadRequestError } from '../errors/bad-request-error';
 import { validateRequest } from '../middlewares/validate-request';
 import { User } from '../models/user';
+import { Password } from '../services/password';
 
 const router = express.Router();
 
 router.post(
-  '/api/users/signup',
+  '/api/users/signin',
   [
     body('email').isEmail().withMessage('provide valid email'),
-    body('password')
-      .trim()
-      .isLength({
-        min: 4,
-        max: 20,
-      })
-      .withMessage('password must be between 4 and 20'),
+    body('password').trim().notEmpty().withMessage('provide the password'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      throw new BadRequestError('Email in use');
+    if (!existingUser) {
+      throw new BadRequestError('bad credentials');
     }
-    const user = User.build({ email, password });
-    await user.save();
+    const passwordMatch = await Password.compare(existingUser.password, password);
+    if (!passwordMatch) {
+      throw new BadRequestError('bad credentials');
+    }
 
     //generate JWT
     const userJwt = jwt.sign(
       {
-        id: user.id,
-        email: user.email,
+        id: existingUser.id,
+        email: existingUser.email,
       },
       process.env.JWT_KEY!
     );
@@ -43,8 +40,8 @@ router.post(
       jwt: userJwt,
     };
 
-    res.status(201).send(user);
+    res.status(200).send(existingUser);
   }
 );
 
-export { router as signupRouter };
+export { router as signinRouter };

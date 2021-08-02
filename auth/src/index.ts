@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import { NotFoundError } from './errors/not-found-error';
 import { errorHandler } from './middlewares/error-handler';
 import { currentUserRouter } from './routes/current-user';
-import { loginRouter } from './routes/login';
+import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 
@@ -18,7 +18,7 @@ app.use(
     secure: true,
   })
 );
-app.use(loginRouter);
+app.use(signinRouter);
 app.use(currentUserRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
