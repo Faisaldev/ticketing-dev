@@ -2,13 +2,7 @@ import request from 'supertest';
 import { app } from '../../app';
 
 it('sign in with wrong password', async () => {
-  await request(app)
-    .post('/api/users/signup')
-    .send({
-      email: 'test@test.com',
-      password: 'qwerty',
-    })
-    .expect(201);
+  const cookie = await signin();
 
   await request(app)
     .post('/api/users/signin')
@@ -20,13 +14,7 @@ it('sign in with wrong password', async () => {
 });
 
 it('get cookie back with correct credentials', async () => {
-  await request(app)
-    .post('/api/users/signup')
-    .send({
-      email: 'test@test.com',
-      password: 'qwerty',
-    })
-    .expect(201);
+  const cookie = await signin();
 
   const response = await request(app)
     .post('/api/users/signin')
