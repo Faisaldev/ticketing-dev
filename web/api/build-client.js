@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//Next.js call this on server side
+//Next.js call get initial props this on server side
 //But in navigating between routes it get called from browser
 const buildClient = ({ req }) => {
   // we are on server
