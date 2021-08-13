@@ -24,5 +24,6 @@ Note: Delete the cluster if you need to use local machine
 ---
 
 - npm js create public organization
-  ** change name to @faysaltickets/common in package.jsom
-  ** npm login -- login npm js using terminal _publish package to npmjs public organization \*npm publish --access public_
+
+* change name to @faysaltickets/common in package.jsom
+* npm login -- login npm js using terminal _publish package to npmjs public organization \_npm publish --access public_
