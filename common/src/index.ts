@@ -4,7 +4,7 @@ interface Coordinates {
 }
 
 const position: Coordinates = {
-  latitude: 2.098,
+  latitude: 2.099,
   longitude: 3.987,
 };
 
