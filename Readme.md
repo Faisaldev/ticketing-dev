@@ -27,3 +27,4 @@ Note: Delete the cluster if you need to use local machine
 
 * change name to @faysaltickets/common in package.jsom
 * npm login -- login npm js using terminal _publish package to npmjs public organization \_npm publish --access public_
+* npm version patch to update version file of specific project e.g. $common- npm version patch
