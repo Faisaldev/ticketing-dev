@@ -1,4 +1,4 @@
-//Re-export the middleware and errors
+//Re-export the middleware and errors to shared among projects
 export * from './errors/bad-request-error';
 export * from './errors/custom-error';
 export * from './errors/database-connection-error';
