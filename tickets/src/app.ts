@@ -1,7 +1,8 @@
-import { errorHandler, NotFoundError } from '@faysaltickets/common';
+import { currentUser, errorHandler, NotFoundError } from '@faysaltickets/common';
 import cookieSession from 'cookie-session';
 import express from 'express';
 import 'express-async-errors';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -13,7 +14,9 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   })
 );
-// app.use(signinRouter);
+app.use(currentUser);
+
+app.use(createTicketRouter);
 // app.use(currentUserRouter);
 // app.use(signupRouter);
 // app.use(signoutRouter);
