@@ -7,7 +7,7 @@ const router = express.Router();
 
 const dataValidation = [
   body('title').not().isEmpty().withMessage('title is require'),
-  body('price').isFloat({ gt: 0 }),
+  body('price').isFloat({ gt: 0 }).withMessage('Price should be greater than zero'),
 ];
 
 router.post('/api/tickets', requireAuth, dataValidation, validateRequest, async (req: Request, res: Response) => {
