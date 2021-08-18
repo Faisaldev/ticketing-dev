@@ -33,3 +33,9 @@ Note: Delete the cluster if you need to use local machine
 ---
 
 - Create the kubernetes secret directly kubectl create secret generic jwt-secret --from-literal=JWT_KEY=
+
+---
+
+- port forward from pod: kubectl port-forward <pod name> localport:pod port e.g. k port-forward nats-depl-\* 4222:4222
+
+- NATS monitoring URL: http://host:8222/streaming or http://host:8222/streaming/channelsz?subs=1
