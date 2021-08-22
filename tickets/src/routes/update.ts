@@ -29,7 +29,7 @@ router.put('/api/tickets/:id', requireAuth, dataValidation, validateRequest, asy
   });
 
   await ticket.save();
-  await new TicketUpdatedPublisher(natsWrapper.client).publish({
+  new TicketUpdatedPublisher(natsWrapper.client).publish({
     id: ticket.id,
     title: ticket.title,
     price: ticket.price,
