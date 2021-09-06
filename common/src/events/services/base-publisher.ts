@@ -18,7 +18,8 @@ export abstract class Publisher<T extends Event> {
         if (err) {
           return reject(err);
         }
-        console.log('Event published to subject ', this.subject);
+        let timestamp = new Date().toISOString();
+        console.log(`${timestamp}-Event published to subject ${this.subject}`);
         resolve();
       });
     });
