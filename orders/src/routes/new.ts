@@ -14,7 +14,7 @@ import { natsWrapper } from '../nats-wrapper';
 const dataValidation = [
   body('ticketId').not().isEmpty().withMessage('ticketId is require'),
 ];
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 1 * 60;
 const router = express.Router();
 
 router.post(
