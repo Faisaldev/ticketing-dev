@@ -8,6 +8,7 @@ export * from './errors/request-validation-error';
 export * from './events/actions/expiration-complete-event';
 export * from './events/actions/order-cancelled-event';
 export * from './events/actions/order-created-event';
+export * from './events/actions/payment-created-event';
 export * from './events/actions/ticket-created-event';
 export * from './events/actions/ticket-updated-event';
 export * from './events/services/base-listener';
