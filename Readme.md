@@ -39,3 +39,15 @@ Note: Delete the cluster if you need to use local machine
 - port forward from pod: kubectl port-forward <pod name> localport:pod port e.g. k port-forward nats-depl-\* 4222:4222
 
 - NATS monitoring URL: http://host:8222/streaming or http://host:8222/streaming/channelsz?subs=1
+
+---
+
+- Install Stripe SDK npm install stripe
+
+- Create Stripe account stripe.com
+
+- copy secret key from developer tab
+
+- create the kubernetes secret directly kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=
+
+- Stripe test token is "tok_visa"

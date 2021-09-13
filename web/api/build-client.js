@@ -8,7 +8,8 @@ const buildClient = ({ req }) => {
     //Call through ingress controller cross namespace url : http://SERVICE_NAME.NAMESPACE.SVC.CLUSTER.LOCAL/<SERVICE URL>
     //Also ingress rule is for host:ticketing.dev so we need to specify in options object
     return axios.create({
-      baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+      baseURL:
+        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
       headers: req.headers,
     });
   } else {
